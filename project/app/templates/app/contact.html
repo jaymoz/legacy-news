@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+{% load embed_video_tags %}
+<html class="no-js">
+<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+		<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+		<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+		<link rel="stylesheet" href="{% static 'css/superfish.css' %}">
+		<link rel="stylesheet" href="{% static 'css/style.css' %}">
+		<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+</head>
+	<body>
+		<div id="fh5co-wrapper">
+		<div id="fh5co-page">
+	  {% include 'app/header.html' %}
+	  {% include 'app/message.html' %}
+		<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>
+			{% for image in images %}
+      <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({{image.contact_background_image.url}})">
+        <div class="desc animate-box">
+          <h2 style="font-family:'Satisfy',cursive"><strong>Keep in touch with</strong> Us</h2>
+        </div>
+	  </div>
+	  {% endfor %}
+
+		</div>
+
+		<div id="fh5co-contact" class="animate-box">
+			<div class="container">
+				<form action="." method="POST">
+          {% csrf_token %}
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<input name="name" type="text" class="form-control" placeholder="Name" required>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<input name="email" type="text" class="form-control" placeholder="Email" required>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<textarea name="message" class="form-control" id="" cols="30" rows="7" placeholder="Message" required></textarea>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<input type="submit" value="Send Message" class="btn btn-primary">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<footer >
+			<div id="footer">
+			  <div class="container">
+				<div class="row">
+					  <div class="col-md-6">
+					{% for foot in footer %}
+				  <p>{{foot.footer_text}}</p>
+				  {% endfor %}
+					  </div>
+				  {% for foot in footer %}
+				  <div class="col-md-6 text-center">
+					<p class="fh5co-social-icons">
+					  <a class="bear ml-5" href="{{foot.facebook_link}}"><i class="fa fa-facebook"></i></a>
+					<a class="bear ml-5" href="{{foot.instagram_link}}"><i class="fa fa-instagram"></i></a>
+					<a class="bear ml-5" href="{{foot.twitter_link}}"><i class="fa fa-twitter"></i></a>
+		  
+					  </p>
+				</div>
+				{% endfor %}
+				  </div>
+			  </div>
+			</div>
+		  </footer>
+
+    </div>
+
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/sticky.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/hoverIntent.js' %}"></script>
+    <script src="{% static 'js/superfish.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+	</body>
+</html>

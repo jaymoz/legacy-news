@@ -1,0 +1,10 @@
+{% extends "app/base_boot.html" %}
+{% load i18n %}
+{% load account %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% user_display user as user_display %}
+<div class="container" style="text-align:center;margin-top:80px;">
+<p><strong>{% trans "Note" %}:</strong> {% blocktrans %}you are already logged in as {{ user_display }}.{% endblocktrans %}</p>
+</div>

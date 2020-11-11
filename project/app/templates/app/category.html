@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/superfish.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+
+	<script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+
+	</head>
+	<body>
+		<div id="fh5co-wrapper">
+		<div id="fh5co-page">
+	  {% include 'app/header.html' %}
+	  {% include 'app/message.html' %}
+
+  		<div id="fh5co-blog-section" class="fh5co-section-gray">
+  			<div class="container">
+  				<div class="row">
+  					<div class="col-md-12 text-center heading-section animate-box">
+							<form action="{% url 'search' %}" class="form-inline" >
+								<input class="form-control mr-sm-2" type="text" name="q" placeholder="Search our blog" aria-label="Search">
+								<button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+							</form>
+  					</div>
+  				</div>
+  			</div>
+  			<div class="container">
+                  {% if categories %}
+  				<div class="row row-bottom-padded-md">
+  					{% for cat in categories %}
+  					<div class="col-lg-4 col-md-4 col-sm-6">
+  						<div class="fh5co-blog animate-box">
+  							<a><img class="img-responsive" src="{{cat.thumbnail.url}}" alt=""></a>
+  							<div class="blog-text">
+  								<div class="prod-title">
+  									<h3><a style="color:#ff5722;" href="{{ cat.get_absolute_url}}">{{cat.title}}</a></h3>
+  									<hr>
+  								</div>
+  							</div>
+  						</div>
+  					</div>
+  				{% endfor %}
+                  </div>
+                  {% else %}
+                  <p></p>
+                  {% endif %}
+  				<nav aria-label="Page navigation example">
+  	<ul class="pagination pagination-template d-flex justify-content-center">
+  		{% if queryset.has_previous %}
+  		<li class="page-item"><a href="?{{ page_request_var }}={{ queryset.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+  		{% endif %}
+  		<li class="page-item"><a href="?{{ page_request_var }}={{ queryset.number }}" class="page-link active">{{ queryset.number }}</a></li>
+  		{% if queryset.has_next %}
+  		<li class="page-item"><a href="?{{ page_request_var }}={{ queryset.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+  		{% endif %}
+  	</ul>
+  </nav>
+
+  {% if is_paginated %}
+
+  <nav aria-label="Page navigation example">
+  	<ul class="pagination pagination-template d-flex justify-content-center">
+  		{% if page_obj.has_previous %}
+  		<li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.previous_page_number }}" class="page-link"> <i class="fa fa-angle-left"></i></a></li>
+  		{% endif %}
+  		<li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.number }}" class="page-link active">{{ page_obj.number }}</a></li>
+  		{% if page_obj.has_next %}
+  		<li class="page-item"><a href="?{{ page_request_var }}={{ page_obj.next_page_number }}" class="page-link"> <i class="fa fa-angle-right"></i></a></li>
+  		{% endif %}
+  	</ul>
+  </nav>
+
+  {% endif %}
+  			</div>
+  		</div>
+
+		  <footer >
+			<div id="footer">
+			  <div class="container">
+				<div class="row">
+					  <div class="col-md-6">
+					{% for foot in footer %}
+				  <p>{{foot.footer_text}}</p>
+				  {% endfor %}
+					  </div>
+				  {% for foot in footer %}
+				  <div class="col-md-6 text-center">
+					<p class="fh5co-social-icons">
+					  <a class="bear ml-5" href="{{foot.facebook_link}}"><i class="fa fa-facebook"></i></a>
+					<a class="bear ml-5" href="{{foot.instagram_link}}"><i class="fa fa-instagram"></i></a>
+					<a class="bear ml-5" href="{{foot.twitter_link}}"><i class="fa fa-twitter"></i></a>
+		  
+					  </p>
+				</div>
+				{% endfor %}
+				  </div>
+			  </div>
+			</div>
+		  </footer>
+
+    </div>
+
+    </div>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/sticky.js' %}"></script>
+    <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static 'js/hoverIntent.js' %}"></script>
+    <script src="{% static 'js/superfish.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+	</body>
+</html>

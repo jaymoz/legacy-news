@@ -1,0 +1,34 @@
+{% load static %}
+{% block content %}
+{% include 'app/links.html' %}
+{% load embed_video_tags %}
+<header id="fh5co-header-section" class="sticky-banner">
+  <div class="container">
+    <div class="nav-header">
+      <a href="{% url 'home' %}" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+      <!--<h1 id="fh5co-logo"><a href="{% url 'home' %}" style="font-family:'Satisfy',cursive">The wisdom of gathering fragments</a></h1>-->
+      <nav id="fh5co-menu-wrap" role="navigation">
+        <ul class="sf-menu" id="fh5co-primary-menu">
+          <li class="active">
+            <a href="{% url 'home' %}">Home</a>
+          </li>
+          <li><a href="#">About</a></li>
+          <li><a href="{% url 'blog' %}">Blog</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          {% if request.user.is_authenticated %}
+          {% if request.user.is_staff %}
+          <li><a href="{% url 'post-create' %}">Create</a></li>
+          <li><a href="/admin/">Admin</a></li>
+          {% endif %}
+          <li><a href="{% url 'account_logout' %}">Logout</a></li>
+          <li style="margin-left:30px;"><label style="color:red;font-family:'Satisfy',cursive;font-size:30px;">Welcome {{request.user}}</label></li>
+          {% else %}
+          <li><a href="{% url 'account_login' %}">Login</a></li>
+          <li><a href="{% url 'account_signup' %}">Signup</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+{% endblock %}

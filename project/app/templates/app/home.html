@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+	<link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/superfish.css' %}">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+	</head>
+	<body>
+
+		<div id="fh5co-wrapper">
+		<div id="fh5co-page">
+		<header id="fh5co-header-section" class="sticky-banner">
+			<div class="container">
+				<div class="nav-header">
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+					<!--<h1 id="fh5co-logo"><a href="{% url 'home' %}" style="font-family: Yellowtail;">The wisdom of gathering fragments</a></h1>-->
+					<nav id="fh5co-menu-wrap" role="navigation">
+						<ul class="sf-menu" id="fh5co-primary-menu">
+							<li class="active">
+								<a href="{% url 'home' %}">Home</a>
+							</li>
+							<li><a href="#fh5co-feature-product">About</a></li>
+							<li><a href="{% url 'blog' %}">Blog</a></li>
+							<li><a href="{% url 'contact' %}">Contact</a></li>
+							{% if request.user.is_authenticated %}
+							{% if request.user.is_staff %}
+							<li><a href="{% url 'post-create' %}">Create</a></li>
+							<li><a href="/admin/">Admin</a></li>
+							{% endif %}
+							<li><a href="{% url 'account_logout' %}">Logout</a></li>
+							<li style="margin-left:30px;"><label style="color:red;font-family:'Satisfy',cursive;font-size:30px;">Welcome {{request.user}}</label></li>
+							{% else %}
+							<li><a href="{% url 'account_login' %}">Login</a></li>
+							<li><a href="{% url 'account_signup' %}">Signup</a></li>
+							{% endif %}
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+
+		{% include 'app/message.html' %}
+
+		<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>
+			{% for image in images %}
+			<div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url({{image.homepage.url}})">
+				<div class="desc animate-box">
+					{% for name in about_text %}
+					<h2 style="font-family:'Satisfy',cursive">{{name.website_name_on_homepage}}</h2>
+					{% endfor %}
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
+
+
+<div id="fh5co-feature-product"  class="fh5co-section-gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center heading-section" >
+				<h3 style="font-family:'Satisfy',cursive">About Us</h3>
+				{% for text in about_text %}
+				<p>{{text.about|safe}}</p>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="row row-bottom-padded-md">
+			{% for image in images %}
+			<div class="col-md-12 text-center animate-box">
+				<p><img src="{{image.about_images1.url}}" alt="Could not load image" class="img-responsive"></p>
+			</div>
+			<div class="col-md-6 text-center animate-box">
+				<p><img src="{{image.about_images2.url}}" alt="Could not load image" class="img-responsive"></p>
+			</div>
+			<div class="col-md-6 text-center animate-box">
+				<p><img src="{{image.about_images3.url}}" alt="Could not load image" class="img-responsive"></p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+
+		<div id="fh5co-content-section" class="fh5co-section-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3 style="font-family:'Satisfy',cursive">Meet The team</h3>
+						<p></p>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					{% for info in team_info %}
+					<div class="col-md-6">
+            <div class="fh5co-team text-center animate-box">
+              <figure class="mt-5">
+                <img src="{{info.image.url}}" alt="...">
+              </figure>
+              <div class="mt-5">
+                <h3 class="mt-5" style="font-family:'Satisfy',cursive">{{info.full_name}}</h3>
+                <p>{{info.description|safe}}</p>
+              </div>
+              <p class="fh5co-social-icons">
+                <a href="{{info.facebook_link}}"><i class="fa fa-facebook"></i></a>
+                <a href="{{info.instagram_link}}"><i class="fa fa-instagram"></i></a>
+              </p>
+            </div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-blog-section" class="fh5co-section-gray">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+				<h3 style="font-family:'Satisfy',cursive">Latest from the Blog</h3>
+				<p>Keep up to date with the latest news from around the globe!</p>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row row-bottom-padded-md">
+			{% for post in latest %}
+			<div class="col-lg-4 col-md-4 col-sm-6">
+				<div class="fh5co-blog animate-box">
+					<a href="#"><img class="img-responsive" src="{{post.thumbnail.url}}" alt=""></a>
+					<div class="blog-text">
+						<div class="prod-title">
+							<h3><a href=""#>{{post.title}}</a></h3>
+							<span class="posted_by">{{post.timestamp}}</span>
+							<span class="comment"><a href="">{{post.comment_count}}<i class="fa fa-comment" aria-hidden="true"></i></a></span>
+							<p>{{post.overview|safe}}</p>
+							<p><a href="{{ post.get_absolute_url }}">Read More...</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4 text-center animate-box">
+				<a href="{% url 'blog' %}" class="btn btn-primary btn-lg">Our Blog</a>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+		<footer >
+		  <div id="footer">
+		    <div class="container">
+		      <div class="row">
+		    		<div class="col-md-6">
+						{% for foot in footer %}
+					<p>{{foot.footer_text}}</p>
+					{% endfor %}
+		    		</div>
+					{% for foot in footer %}
+					<div class="col-md-6 text-center">
+							<p class="fh5co-social-icons">
+							<a class="bear ml-5" href="{{foot.facebook_link}}"><i class="fa fa-facebook"></i></a>
+							<a class="bear ml-5" href="{{foot.instagram_link}}"><i class="fa fa-instagram"></i></a>
+							<a class="bear ml-5" href="{{foot.twitter_link}}"><i class="fa fa-twitter"></i></a>
+
+								</p>
+					</div>
+					{% endfor %}
+		    	</div>
+		    </div>
+		  </div>
+		</footer>
+
+	</div>
+	</div>
+
+
+
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+	<script src="{% static 'js/sticky.js' %}"></script>
+	<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+	<script src="{% static 'js/hoverIntent.js' %}"></script>
+	<script src="{% static 'js/superfish.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+	</body>
+</html>
